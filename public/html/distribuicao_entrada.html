@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definir Distribuição de Entrada</title>
+    <link rel="stylesheet" href="https://localhost:3000/css/distribuicao_entrada.css">
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+    <div id="carregando">
+        <img src="https://sonobel.com.br/assets/img/loading%20(2).gif" alt="carregando" height="150" width="150">
+    </div>
+    <header>
+        <form>
+            <label for="celula">Célula: </label>
+            <select id="celula" name="celula">
+            </select>
+        </form>
+    </header>
+    <main>
+        <h1>Definir Distribuição de Entrada</h1>
+        <hr>
+        <div class="container" id="menu">
+            <div class="button" id="btn-normal">
+                <img src="https://localhost:3000/assets/icone-grafico-normal.png" alt="Normal">
+                <p>Normal</p>
+            </div>
+            <div class="button" id="btn-uniforme">
+                <img src="https://localhost:3000/assets/icone-grafico-uniforme.png"  alt="Uniforme">
+                <p>Uniforme</p>
+            </div>
+            <div class="button" id="btn-triangular">
+                <img src="https://localhost:3000/assets/icone-grafico-triangular.png"  alt="Triangular">
+                <p>Triangular</p>
+            </div>
+            <div class="button" id="btn-binaria">
+                <img src="https://localhost:3000/assets/icone-grafico-binario.png"  alt="Binaria">
+                <p>Binaria</p>
+            </div>
+        </div>
+        <div id="msg-binaria">
+            <p id="msg-erro2"></p>
+        </div>
+        <div id="content" >
+           
+        </div>
+    </main>
+    <div style="width: 100%; min-height: 10%; position: absolute; bottom: 0px">
+        <button class="modern-button" id="salvar">Salvar</button>
+        <button class="modern-button" id="cancelar">Fechar</button>
+    </div>
+    <script src="https://localhost:3000/script/distribuicao_entrada.js"></script>
+</body>
+</html>

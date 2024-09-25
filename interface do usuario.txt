@@ -1,0 +1,81 @@
+BIBLIOTECA DE CSS (UMA ESPECIE DE BOTSTRAP)
+
+https://developer.microsoft.com/en-us/fluentui#/styles/web/icons
+<i class="ms-Icon ms-font-xl ms-Icon--Table ms-fontColor-themePrimary"></i>
+
+===================
+PRINCIPIOS DE LINGUAGEM NO TEXTO:
+Use um estilo natural.
+Use uma linguagem simples e direta. Use palavras e frases curtas, e a voz ativa no seu texto.
+Seja consistente. Use sempre as mesmas palavras para os mesmos conceitos.
+Envolva os usuários. Use o pronome “você” para falar com os usuários. Evite usar a terceira pessoa.
+Seja prestativo e empático. Torne seu texto positivo, gentil, solidário e estimulante.
+Conheça seus clientes.
+====================
+
+ENVIANDO DA MODAL PARA TASKPANE
+Office.onReady(function() {
+   // Add any initialization code for your dialog here.
+});
+
+// Called when dialog signs in the user.
+function userSignedIn() {
+    Office.context.ui.messageParent(true.toString()); //pode ser enviado um JSON tambem
+}
+----------------------------------------------------------------------------------------------------
+RECEBENDO NA TAKSPANE A MENSAGEM DA MODAL
+let dialog; // Declare dialog as global for use in later functions.
+Office.context.ui.displayDialogAsync('https://www.contoso.com/myDialog.html', {height: 30, width: 20},
+    function (asyncResult) {
+        dialog = asyncResult.value;
+        dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+    }
+);
+
+function processMessage(arg) {
+    const messageFromDialog = JSON.parse(arg.message);
+    showUserName(messageFromDialog.name);
+}
+------------------------------------------------------------------------------------------------------
+FECHANDO A MODAL 
+dialog.close();
+
+-------------------------------------------------------------------------------------------------------
+ENVIANDO MENSAGEM DA TASKPANE PARA A MODAL
+
+let dialog; // Declare as global variable.
+Office.context.ui.displayDialogAsync('https://www.contoso.com/myDialog.html',
+    function (asyncResult) {
+        dialog = asyncResult.value;
+        dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+    }
+);
+
+function processMessage(arg) {
+    dialog.close();
+
+  // message processing code goes here;
+}
+
+function sheetPropertiesChanged() {
+    const messageToDialog = JSON.stringify({
+                               name: "My Sheet",
+                               position: 2
+                           });
+
+    dialog.messageChild(messageToDialog);
+}
+----------------------------------------------------------------------------
+RECENBENDO NA MODAL A MENSAGEM DA TASKPANE
+Office.onReady(function () {
+  Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived,
+    onMessageFromParent);
+});
+
+function onMessageFromParent(arg) {
+  const messageFromParent = JSON.parse(arg.message);
+  document.querySelector('h1').textContent = messageFromParent.name;
+}
+-----------------------------------------------------------------------------
+
+

@@ -1,0 +1,70 @@
+ESTRUTURA BASICA PARA EXECUTAR UMA INTERAÇÃO COM A TABELA DO EXCEL
+
+ await Office.onReady(async function (info) {
+     if (info.host === Office.HostType.Excel) {
+         // Execute o seu código do Excel aqui
+         await Excel.run(async function (context) {
+             
+         }).catch(function (error) {
+             console.log('error: ' + error);
+             if (error instanceof OfficeExtension.Error) {
+                 console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+             }
+         });
+     }
+   });
+
+----------------------------------------------------------
+INTERVALOS
+Um intervalo é um grupo de células contíguas na pasta de trabalho. Os suplementos costumam usar uma notação estilo A1 
+(por ex.: B3 para a única célula na coluna B e linha 3 ou C2:F4 para as células das colunas C a F e linhas 2 a 4) para
+ definir intervalos.
+
+Os intervalos têm três propriedades principais: 'values', 'formulas' e 'format'. Essas propriedades recebem ou definem os 
+valores da célula, as fórmulas a serem avaliadas e a formatação visual das células.
+
+----------------------------------------------------------
+PEGAR INTERVALO DE CELULAS
+
+let sheet = context.workbook.worksheets.getActiveWorksheet();
+let headerRange = sheet.getRange("B2:E2");
+
+------------------------------------------------------------
+REDEFINIR PARA UMA PROPRIEDADE ORIGINAL
+
+range.format.PROPRIEDADE = '';
+
+-------------------------------------------------------------
+PEGAR UM RANGE DE UMA TABELA ESPECIFICA
+let range = context.workbook.worksheets.getItem("Sheet1").getRange("A1:D4");
+
+--------------------------------------------------------------
+VOLTAR PRA FORMATAÇÃO PADRÃO DO EXCEL
+
+ cellRange.clear(Excel.ClearApplyTo.formats);
+
+ ou
+
+ selectedRange.format.fill.clear();
+
+--------------------------------------------------------------
+LER UM VALOR DE UMA CELULA
+selectedRange.load("values");
+valor = selectedRange.values;
+
+------------------------------------------------------------
+ATUALIZA OS VALOR DA CELULA
+let range = sheet.getRange("C3");
+range.values = [[ 5 ]];
+
+-----------------------------------------------------------
+PAUSAR ATUALIZAÇÕES VISUAIS 
+
+Application.suspendScreenUpdatingUntilNextSync() 
+
+pausa atualizações visuais no Excel até as chamadas do suplemento context.sync(), ou até oExcel.run terminar 
+(chamadas implícitas context.sync). 
+
+-----------------------------------------------------------
+SUSPENDER A EDIÇÃO DE CELULAS
+await Excel.run({ delayForCellEdit: true }, async (context) => { ... });

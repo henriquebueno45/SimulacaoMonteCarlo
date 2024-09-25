@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Entrada</title>
+    <link rel="stylesheet" href="https://localhost:3000/style.css">
+</head>
+<body>
+    <h1>Adicionar Nova Entrada em "celulas-de-entrada"</h1>
+    <form id="entryForm">
+        <label for="celula">Celula:</label>
+        <input type="text" id="celula" name="valor"><br><br>
+        <button type="submit">Adicionar</button>
+    </form>
+    <h4 id="msgbox"></h4>
+    <script>
+        document.getElementById('entryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const valor = document.getElementById('celula').value;
+
+            const data = {
+                celula:valor
+            };
+
+            fetch('/api/simulation/celulas-de-entrada', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("msgbox").innerHTML=data;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

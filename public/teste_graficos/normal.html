@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center;">Gráfico Normal</h1>
+    <svg width="500" height="500"></svg>
+    <script>
+        const media=1
+        const dp = 100
+        let data = []
+        for (let x = media-4*dp; x <= media+4*dp; x += 0.01) { 
+            const denominador = Math.sqrt(2*Math.PI*dp*dp)
+            const expoente = -(Math.pow(x-media,2))/(2*dp*dp)
+            const y = (1/denominador)*Math.exp(expoente)
+            data.push({x: x, y: y});
+        }
+        // Define the dimensions and margins of the graph
+        const width = 500;
+        const height = 500;
+        const margin = {top: 20, right: 20, bottom: 30, left: 40};
+
+        // Create an SVG container
+        const svg = d3.select("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Create scales
+        const xScale = d3.scaleLinear()
+            .domain([data[0].x, data[data.length - 1].x])  // Correção aplicada
+            .range([margin.left, width - margin.right]);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, 0.5/dp])  // Alternativa simplificada
+            .range([height - margin.bottom, margin.top]);
+
+        // Define the area generator function
+        const area = d3.area()
+            .x(d => xScale(d.x))
+            .y0(height - margin.bottom)  // Start at the bottom of the SVG
+            .y1(d => yScale(d.y));
+
+        // Append the area to the SVG
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "lightblue")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2)
+            .attr("d", area);
+
+        // Add X axis
+        svg.append("g")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(xScale));
+
+        // Add Y axis
+        svg.append("g")
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(yScale));
+    </script>
+</body>
+</html>

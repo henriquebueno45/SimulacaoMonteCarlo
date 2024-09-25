@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definir Distribuição Triangular</title>
+    <link rel="stylesheet" href="https://localhost:3000/style.css">
+</head>
+<body>
+    <h1>Definir Distribuição Triangular</h1>
+    <form id="entryForm">
+        <label for="min">Valor mínimo:</label>
+        <input type="text" id="min" name="valor1"><br><br>
+        <label for="moda">Valor médio:</label>
+        <input type="text" id="moda" name="valor2"><br><br>
+        <label for="max">Valor máximo:</label>
+        <input type="text" id="max" name="valor3"><br><br>
+        <label for="celula">Célula de entrada:</label>
+        <input type="text" id="celula" name="valor4"><br><br>
+        <button type="submit">Adicionar</button>
+    </form>
+    <h4 id="msgbox"></h4>
+    <script>
+        document.getElementById('entryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const Celula = document.getElementById('celula').value;
+            const Min = document.getElementById('min').value;
+            const Moda = document.getElementById('moda').value;
+            const Max = document.getElementById('max').value;
+
+            const data = {
+                min:Min,
+                moda:Moda,
+                max:Max,
+                celula:Celula
+            };
+            document.getElementById("msgbox").innerHTML="Carregando...";
+
+            fetch('/api/simulation/definir-triangular', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("msgbox").innerHTML=data;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

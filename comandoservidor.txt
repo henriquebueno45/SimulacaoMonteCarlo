@@ -1,0 +1,60 @@
+
+
+criar um exemplo de comparação para a selene escolher
+
+fatorar server.js
+
+fatorar functions.py
+
+verificar porque quando clico denovo o cara não fecha a parada
+
+ATE DIA 14
+===================================================
+
+revisar principios de mostrar graficos no office = https://learn.microsoft.com/pt-br/office/dev/add-ins/design/data-visualization-guidelines?view=common-js-preview
+
+verificar se os graficos seguem o principio
+
+criar uma experiencia de primeiro uso = https://learn.microsoft.com/pt-br/office/dev/add-ins/design/first-run-experience-patterns?view=common-js-preview
+
+mudar o select para a biblioteca Select2 e fazer uma comparação para a selene escolher.
+
+verificar se é suportado com o 'requirements.isSetSupported()' e mostrar msg de error
+
+mostrar uma mensagem de chamando API da tela de dialogo da simulação
+
+descobrir como pegar o evento de mudança de nome de planilha
+
+criar uma API para mudança de nome de planilha
+
+JS para lidar com mudança de nome de planilha
+======================================
+criar uma logica de copiar as planilhas e ver se o desempenho aumenta: 
+
+estudar o que é mais eficiente - css em um lugar só, ou coisas separadas 
+
+quando for inserir , tirar o ç do nome da planilha e colocar o c
+
+na função ,montarFormulario em distribuicao_entrada.js cria uma função para contar o numero de linhas de uma matriz e tira o parametro
+
+melhorar a margem dos icones de 16x16 e do 32x32
+
+compilar os scripts python pra acelerar o desempenho
+
+tentar usar o rangeAreas para ver se fica mais rapido o suplemento
+
+=====================================================================
+colocar uma modal de carregamento da definição de entradas
+
+colocar uma modal de erro na definição de entrada e simplificada
+
+fazer a API verificar se a celula é entrada ou saida  antes de salvar ela como tela
+
+fazer um script que percorre o documento formatando as celulas de entrada e saida
+
+tirar a desabilitação de comandos
+
+
+
+
+

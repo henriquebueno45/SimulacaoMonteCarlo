@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <link rel="stylesheet" href="https://localhost:3000/css/result.css">
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+    <div id="carregando">
+        <img src="https://sonobel.com.br/assets/img/loading%20(2).gif" alt="carregando" height="150" width="150">
+    </div>
+    <header>
+        <form>
+            <label for="celula">Célula: </label>
+            <select id="celula" name="celula">
+            </select>
+        </form>
+    </header>
+    <main>
+        <h1>Análise dos Resultados</h1>
+        <div style="width: 40%;overflow: auto;">
+            <table>
+                <caption>Dados Estatísticos</caption>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Média</td>
+                        <td id="media"></td>
+                    </tr>
+                    <tr>
+                        <td>Desvio Padrão</td>
+                        <td id="dp"></td>
+                    </tr>
+                    <tr>
+                        <td>Mediana</td>
+                        <td id="mediana"></td>
+                    </tr>
+                    <tr>
+                        <td>Percentil 10%</td>
+                        <td id="percentil10"></td>
+                    </tr>
+                    <tr>
+                        <td>Percentil 90%</td>
+                        <td id="percentil90"></td>
+                    </tr>
+                    <tr>
+                        <td>Máximo</td>
+                        <td id="max"></td>
+                    </tr>
+                    <tr>
+                        <td>Mínimo</td>
+                        <td id="min"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div style="width: 100%; min-height: 10%; position: absolute; bottom: 0px">
+        <button class="modern-button" id="cancelar">Voltar</button>
+    </div>
+    <script src="https://localhost:3000/script/result.js"></script>
+</body>
+</html>

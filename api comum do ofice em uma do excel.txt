@@ -1,0 +1,101 @@
+readDocumentFileAsync(): Promise<any> {
+    return new Promise((resolve, reject) => {
+        const chunkSize = 65536;
+        const self = this;
+        
+        //AQUI ENTRA O API ESPECIFICA DO EXCEL
+        //   |
+        //   |  
+        //   ^
+        Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: chunkSize }, (asyncResult) => {
+            if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+                reject(asyncResult.error);
+            } else {
+                // `getAllSlices` is a Promise-wrapped implementation of File.getSliceAsync.
+                self.getAllSlices(asyncResult.value).then(result => {
+                    if (result.IsSuccess) {
+                        resolve(result.Data);
+                    } else {
+                        reject(asyncResult.error);
+                    }
+                });
+            }
+        });
+    });
+}
+
+
+
+
+Office.context.document.settings.set('themeColor', 'green');  //para armazenar no documento a configuração
+
+Office.addin.setStartupBehavior(Office.StartupBehavior.load); // para inicializar o suplemento assim que o documento é aberto,sem precisar de uma interação
+
+
+FUNÇÕES DO MANIFEST
+
+Descreva a si mesmo fornecendo ID, versão, descrição, nome para exibição e local padrão.
+
+Especifique as imagens usadas para identidade visual do suplemento e a iconografia usada para os comandos do suplemento na faixa de opções do Aplicativo do Office.
+
+Especifique como o suplemento se integra ao Office, incluindo qualquer interface do usuário personalizada, como botões da faixa de opções criados pelo suplemento.
+
+Declare permissões exigidas pelo Suplemento do Office, como ler ou gravar no documento.
+
+os dominios dos recursos utilizados devem ser listados no MANIFEST
+
+o servidor deve ter um certificado SSH
+
+
+RECOMENDAÇÕES DE SEGURANÇA
+
+O objeto Settings destina-se a persistir configurações e dados de estado de suplementos entre sessões para um 
+suplemento de conteúdo ou de painel de tarefas, mas não armazena senhas e outros itens de PII confidenciais no 
+objeto Settings. Os dados no objeto Settings não ficam visíveis para os usuários finais, mas são armazenados como 
+parte do formato de arquivo do documento, que está prontamente acessível. Você deve limitar o uso de PII pelo 
+suplemento e armazenar quaisquer itens de PII necessários ao suplemento no servidor que hospeda o suplemento como 
+um recurso protegido pelo usuário.
+
+O uso de alguns aplicativos pode revelar itens de PII. Armazene com segurança os dados de identidade, local, horas
+de acesso e outras credenciais dos usuários para que os dados não sejam disponibilizados para outros usuários do 
+suplemento.
+
+Se o suplemento estiver disponível no AppSource, o requisito do AppSource por HTTPS protegerá os itens de PII 
+transmitidos entre o servidor Web e o dispositivo ou computador cliente. No entanto, se você retransmitir esses 
+dados para outros servidores, observe o mesmo nível de proteção.
+
+Se você armazenar itens de PII dos usuários, revele esse fato e forneça uma maneira para que os usuários os 
+inspecionem e excluam. Se você enviar o suplemento ao AppSource, poderá indicar na política de privacidade os 
+dados que coleta e como eles são usados.
+
+Os desenvolvedores não devem inserir chaves que usam para acessar APIs ou serviços da Microsoft e outros (
+como Bing, Google ou Facebook) diretamente nas páginas HTML de seu suplemento. Em vez disso, 
+devem criar um serviço Web personalizado ou armazenar as chaves em alguma outra forma de armazenamento seguro na
+Web, que podem então chamar para passar o valor de chave ao suplemento.
+
+Os desenvolvedores devem fazer o seguinte ao enviar um suplemento ao AppSource.
+    - Hospedar o suplemento que estão enviando em um servidor Web que dê suporte a SSL.
+    - Produzir uma declaração com uma política de privacidade compatível.
+    - Estar preparados para assinar um acordo contratual ao enviar o suplemento.
+
+Se precisar usar cookies consulte a documentação ESPECIFICA
+
+ARMAZENAMENTO DE CONFIGURAÇÕES
+
+Dados sensiveis devem ser armazenados apenas no session storage para quando acabar a execução os dados sumirem
+
+Office.context.document.settings.set('themeColor', 'green'); // para salvar dados que ficam como configuração do documento, pode ser usado para armazenar os dados da simulação
+Office.context.document.settings.get('themeColor') // para obter o valor salvo
+Office.context.document.settings.remove('themeColor'); //remove a chave
+Office.context.document.settings.saveAsync(()=>{}) // salva os valores no documento de forma persistente
+
+
+SSO = autenticação da Microsoft ---> pode ser util na implementation para o publico, consultar documentação para detalhes da implementação
+
+
+
+
+
+
+
+

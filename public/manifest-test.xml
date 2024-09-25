@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <!-- CONFIGURAÇÕES BASICAS-->
+  <!--Id para identificação do suplemento no appsource -->
+  <Id>775091b3-e24a-4cf4-a65b-26976fda4f3c</Id>
+   <!--Indica a versão do suplemento -->
+  <Version>1.0.0.0</Version>
+  <!--Organização que desenvolveu o suplemento -->
+  <ProviderName>UFSC</ProviderName>
+  <!--Local e linguagem padrão do suplemento -->
+  <DefaultLocale>pt-BR</DefaultLocale>
+  <!--Nome do suplemento -->
+  <DisplayName DefaultValue="Simulação de Monte Carlo"/>
+  <!--Descrição do suplemento-->
+  <Description DefaultValue="Add-in para simulação de Monte Carlo, desenvolvido pela Universidade Federal de Santa Catarina"/>
+  <!--Icone Padrão do Suplemento-->
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <!--Icone Para telas com alta resolução-->
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
+  <!--Link de Suporte ao usuario ? MUDAR QUANDO TIVER A PAGINA NO GITHUB DE AJUDA?-->
+  <SupportUrl DefaultValue="https://localhost:3000"/>
+  <!--Dominios que podem ser chamados dentro do aplicativo-->
+  <AppDomains>
+      <AppDomain>https://localhost:3000</AppDomain>  <!--ALTERAR QUANDO ESTIVER EM PRODUÇÃO-->
+  </AppDomains>
+  <!--Configuração do aplicativo office que o suplemento deve ser executado -->
+  <Hosts>
+    <Host Name="Workbook"/> <!--Indica que é para o Excel-->
+  </Hosts>
+  <!--Requerimento-->
+   <Requirements>
+     <Sets DefaultMinVersion="1.1">
+      <Set Name="ExcelApi" MinVersion="1.17"/>
+      <Set Name="SharedRuntime" MinVersion="1.1"/>
+      <Set Name="DialogApi" MinVersion="1.2"/>
+     </Sets>
+  </Requirements>
+  <!--Configuração da origem padrão do suplemento -->
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/html/taskpane.html"/>  <!-- indica o arquivo html que vai ser carregado na Home -->
+  </DefaultSettings>
+  <!--Configuração da permisão do suplemento-->
+  <Permissions>ReadWriteDocument</Permissions>
+   <!--Contém informações para recursos que não têm suporte no manifesto base.-->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+     <!--Determina o tipo de aplicativo do office que o suplemento rodara-->
+    <Hosts>
+      <!--Indica que o suplemento roda no excel-->
+      <Host xsi:type="Workbook">
+        <!--Contém todas as informações de suplemento para o fator de formulário-->
+        <DesktopFormFactor>
+           <!--Contem as informações que aparecem quando o suplemento é instalado pela primeira vez-->
+          <GetStarted>
+            <Title resid="GetStarted.Title"/> <!--Titulo que aparece na mensagem-->
+            <Description resid="GetStarted.Description"/><!--Descrição que aparece na caixa de msg-->
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/><!--URL para a pagina de ajuda que aparece na caixa de msg-->
+          </GetStarted>
+          <FunctionFile resid="Commands.Url" /> <!--Url para o HTML do Comando de interface-->
+          <!--Configuração do Botão Primario do Suplemento-->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <!--Indica qual tab o botão ou grupo de botões vai aparecer-->
+            <CustomTab id="Contoso Tab">
+              <Label resid="CustomTab.Label"/>
+              <Group id="Group1Id12">
+                <Label resid="CustomTab.Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Entrada.16x16" />
+                  <bt:Image size="32" resid="Icon.Entrada.32x32" />
+                  <bt:Image size="80" resid="Icon.Entrada.80x80" />
+                </Icon>
+                <Tooltip resid="residToolTip" />
+                <!--Botão definir entrada-->
+                <Control xsi:type="Button" id="Button1Id1">
+                  <Label resid="CustomTab.Group.Control.Label"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Entrada.16x16" />
+                    <bt:Image size="32" resid="Icon.Entrada.32x32" />
+                    <bt:Image size="80" resid="Icon.Entrada.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>AdicionarEntrada</FunctionName>
+                  </Action>
+                </Control>
+                <!--Botão definir saida-->
+                <Control xsi:type="Button" id="Button3Id1">
+                  <Label resid="CustomTab.Group.Control.Label3"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label3"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Saida.16x16" />
+                    <bt:Image size="32" resid="Icon.Saida.32x32" />
+                    <bt:Image size="80" resid="Icon.Saida.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>AdicionarSaida</FunctionName>
+                  </Action>
+                </Control>
+                <!--Botão definir distribuição-->
+                <Control xsi:type="Button" id="Button4Id1">
+                  <Label resid="CustomTab.Group.Control.Label4"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label4"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Distribuicao.16x16" />
+                    <bt:Image size="32" resid="Icon.Distribuicao.32x32" />
+                    <bt:Image size="80" resid="Icon.Distribuicao.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>DefinirEntradas</FunctionName>
+                  </Action>
+                </Control>
+                <!--Botão definir iterações-->
+                <Control xsi:type="Button" id="Button5Id1">
+                  <Label resid="CustomTab.Group.Control.Label5"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label5"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Iteracoes.16x16" />
+                    <bt:Image size="32" resid="Icon.Iteracoes.32x32" />
+                    <bt:Image size="80" resid="Icon.Iteracoes.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>DefinirIteracoes</FunctionName>
+                  </Action>
+                </Control>
+                <!--Botão play-->
+                <Control xsi:type="Button" id="Button6Id1">
+                  <Label resid="CustomTab.Group.Control.Label6"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label6"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Play.16x16" />
+                    <bt:Image size="32" resid="Icon.Play.32x32" />
+                    <bt:Image size="80" resid="Icon.Play.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>Simular</FunctionName>
+                  </Action>
+                </Control>
+                <!--Botão Gráficos-->
+                <Control xsi:type="Button" id="Button7Id1">
+                  <Label resid="CustomTab.Group.Control.Label7"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label7"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Graficos.16x16" />
+                    <bt:Image size="32" resid="Icon.Graficos.32x32" />
+                    <bt:Image size="80" resid="Icon.Graficos.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>Resultados</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="Button2Id1">
+                  <Label resid="CustomTab.Group.Control.Label2"/>
+                  <Tooltip resid="residToolTip" />
+                  <Supertip>
+                    <Title resid="CustomTab.Group.Control.Label2"/>
+                    <Description resid="residToolTip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/><!--Tamanho 16x16-->
+                    <bt:Image size="32" resid="Icon.32x32"/><!--Tamanho 32x32-->
+                    <bt:Image size="80" resid="Icon.80x80"/><!--Tamanho 80x80-->
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </CustomTab>
+          </ExtensionPoint>
+          <!--Definição do menu de contexto-->
+          <ExtensionPoint xsi:type="ContextMenu">
+            <OfficeMenu id="ContextMenuCell">
+              <Control xsi:type="Menu" id="ContextMenu2">
+                <Label resid="OfficeMenu.Control.Label"/>
+                <Supertip>
+                  <Title resid="OfficeMenu.Control.Label"/>
+                  <Description resid="residToolTip" />
+                </Supertip>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Entrada.16x16" />
+                  <bt:Image size="32" resid="Icon.Entrada.32x32" />
+                  <bt:Image size="80" resid="Icon.Entrada.80x80" />
+                </Icon>
+                <Items>
+                  <!--Remover Entrada-->
+                  <Item id="msgReadMenuItem1">
+                    <Label resid="OfficeMenu.Control.Item.Label1"/>
+                    <Supertip>
+                      <Title resid="OfficeMenu.Control.Item.Label1"/>
+                      <Description resid="residToolTip" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.Entrada.16x16" />
+                      <bt:Image size="32" resid="Icon.Entrada.32x32" />
+                      <bt:Image size="80" resid="Icon.Entrada.80x80" />
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>RemoverEntrada</FunctionName>
+                    </Action>
+                  </Item>
+                  <!--Remover Saida-->
+                  <Item id="msgReadMenuItem2">
+                    <Label resid="OfficeMenu.Control.Item.Label2"/>
+                    <Supertip>
+                      <Title resid="OfficeMenu.Control.Item.Label2"/>
+                      <Description resid="residToolTip" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.Saida.16x16" />
+                      <bt:Image size="32" resid="Icon.Saida.32x32" />
+                      <bt:Image size="80" resid="Icon.Saida.80x80" />
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>RemoverSaida</FunctionName>
+                    </Action>
+                  </Item>
+                </Items>
+              </Control>
+            </OfficeMenu>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+        <!--Configura o tempo de execução-->
+        <Runtimes>
+          <Runtime resid="Taskpane.Url" lifetime="long" /> <!--Tempo de execução compartilhado-->
+        </Runtimes>
+      </Host>
+    </Hosts>
+    <!--Especifica os recursos-->
+    <Resources>
+      <!--Especifica as imagens usadas na interface do office-->
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="Icon.Entrada.16x16" DefaultValue="https://localhost:3000/assets/icon-entrada-16.png"/>
+        <bt:Image id="Icon.Entrada.32x32" DefaultValue="https://localhost:3000/assets/icon-entrada-32.png"/>
+        <bt:Image id="Icon.Entrada.80x80" DefaultValue="https://localhost:3000/assets/icon-entrada-80.png"/>
+        <bt:Image id="Icon.Saida.16x16" DefaultValue="https://localhost:3000/assets/icon-saida-16.png"/>
+        <bt:Image id="Icon.Saida.32x32" DefaultValue="https://localhost:3000/assets/icon-saida-32.png"/>
+        <bt:Image id="Icon.Saida.80x80" DefaultValue="https://localhost:3000/assets/icon-saida-80.png"/>
+        <bt:Image id="Icon.Distribuicao.16x16" DefaultValue="https://localhost:3000/assets/icon-distribution-16.png"/>
+        <bt:Image id="Icon.Distribuicao.32x32" DefaultValue="https://localhost:3000/assets/icon-distribution-32.png"/>
+        <bt:Image id="Icon.Distribuicao.80x80" DefaultValue="https://localhost:3000/assets/icon-distribution-80.png"/>
+        <bt:Image id="Icon.Iteracoes.16x16" DefaultValue="https://localhost:3000/assets/icon-iteracoes-16.png"/>
+        <bt:Image id="Icon.Iteracoes.32x32" DefaultValue="https://localhost:3000/assets/icon-iteracoes-32.png"/>
+        <bt:Image id="Icon.Iteracoes.80x80" DefaultValue="https://localhost:3000/assets/icon-iteracoes-80.png"/>
+        <bt:Image id="Icon.Play.16x16" DefaultValue="https://localhost:3000/assets/icon-play-16.png"/>
+        <bt:Image id="Icon.Play.32x32" DefaultValue="https://localhost:3000/assets/icon-play-32.png"/>
+        <bt:Image id="Icon.Play.80x80" DefaultValue="https://localhost:3000/assets/icon-play-80.png"/>
+        <bt:Image id="Icon.Graficos.16x16" DefaultValue="https://localhost:3000/assets/icon-graficos-16.png"/>
+        <bt:Image id="Icon.Graficos.32x32" DefaultValue="https://localhost:3000/assets/icon-graficos-32.png"/>
+        <bt:Image id="Icon.Graficos.80x80" DefaultValue="https://localhost:3000/assets/icon-graficos-80.png"/>
+      </bt:Images>
+      <!--Especifica as urls usadas na interface do office-->   
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://localhost:3000"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/html/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/html/commands.html"/> <!--URL de teste-->
+      </bt:Urls>
+      <!--Especifica as string (até 32 caracteres) curtas usadas na interface do office-->
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Simulação de Monte Carlo"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Simulação de Monte Carlo"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Monte Carlo"/>
+        <bt:String id="TaskpaneButton.SupertipTitle" DefaultValue="Monte Carlo"/>
+        <bt:String id="CustomTab.Label" DefaultValue="Simulação de Monte Carlo"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Label" DefaultValue="Simulação de Monte Carlo"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label" DefaultValue="Adicionar entrada"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label2" DefaultValue="Simulação de Monte Carlo"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label3" DefaultValue="Adicionar saida"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label4" DefaultValue="Definir Distribuição"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label5" DefaultValue="Definir Número de Iterações"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label6" DefaultValue="Iniciar Simulação"/><!--String de teste-->
+        <bt:String id="CustomTab.Group.Control.Label7" DefaultValue="Analisar Resultados"/><!--String de teste-->
+        <bt:String id="OfficeMenu.Control.Label" DefaultValue="Entrada e Saida"/><!--String de teste-->
+        <bt:String id="OfficeMenu.Control.Item.Label1" DefaultValue="Remover Entrada"/><!--String de teste-->
+        <bt:String id="OfficeMenu.Control.Item.Label2" DefaultValue="Remover Saida"/><!--String de teste-->
+      </bt:ShortStrings>
+       <!--Especifica as string (até 250 caracteres) longas usadas na interface do office-->
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Suplemento carregado com sucesso!"/>
+        <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Clique para saber mais..."/>
+        <bt:String id="residToolTip" DefaultValue="testando3-Longo">
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

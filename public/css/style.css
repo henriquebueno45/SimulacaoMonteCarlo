@@ -1,0 +1,61 @@
+img{
+    width: 200px;
+    object-fit: contain;
+}
+
+main{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Open Sans", sans-serif;
+    padding-bottom: 100px;
+}
+
+h1{
+    width: 94%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 36px;
+}
+
+h2{
+    width: 94%;
+    text-align: left;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+p{
+    text-align: left;
+    width: 94%;
+    max-width: 94%;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.icone{
+    height: 16px;
+    width: 16px;
+    object-fit:cover;
+}
+
+.taskbtn{
+    width: 100px;
+    height:100px;
+    object-fit:cover;
+}
+
+footer{
+    position: fixed;
+    bottom: 0px;
+    margin: 0px;
+    background-color:#1659bf;
+    width: 100%;
+}
+
+.caixa-para-o-link{
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
